@@ -1,5 +1,6 @@
 #include "MyArray.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ void MyArray::showTab (int tab[], int len)
     {
         for(int i = 0;i < len;i++)
         {
-            cout << tab[i] << " ";
+            cout << tab[i] << setw(2)<< " ";
             if(i%11==10)
             {
                 cout << endl;

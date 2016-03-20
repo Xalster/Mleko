@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1458401360 source:d:\code\sdizo\sdizop1\main.cpp
+1458498350 source:d:\code\sdizo\sdizop1\main.cpp
 	<iostream>
 	<time.h>
 	<cstdlib>
@@ -7,15 +7,18 @@
 	<MyList.h>
 	<Heap.h>
 	<RedBlackTree.h>
+	<windows.h>
+	<fstream>
 
 1458205689 d:\code\sdizo\sdizop1\include\myarray.h
 	<iostream>
 	<cstdlib>
 	<string.h>
 
-1458205823 source:d:\code\sdizo\sdizop1\src\myarray.cpp
+1458494712 source:d:\code\sdizo\sdizop1\src\myarray.cpp
 	"MyArray.h"
 	<iostream>
+	<iomanip>
 
 1458390187 source:d:\code\sdizo\sdizop1\src\heap.cpp
 	"Heap.h"
