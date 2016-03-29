@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1459085176 source:d:\code\sdizo\sdizop1v2\main.cpp
+	<iostream>
+	<time.h>
+	<cstdlib>
+	<MyArray.h>
+	<MyList.h>
+	<Heap.h>
+	<RBT.h>
+	<windows.h>
+
+1458599141 source:d:\code\sdizo\sdizop1v2\src\myarray.cpp
+	"MyArray.h"
+	<iostream>
+	<time.h>
+	<cstdlib>
+	<string>
+	<fstream>
+	<iomanip>
+
+1458599141 d:\code\sdizo\sdizop1v2\include\myarray.h
+	<string>
+
+1459013250 source:d:\code\sdizo\sdizop1v2\src\mylist.cpp
+	"MyList.h"
+	<string>
+	<iostream>
+	<fstream>
+
+1458604093 d:\code\sdizo\sdizop1v2\include\mylist.h
+	<string>
+
+1459012752 source:d:\code\sdizo\sdizop1v2\src\heap.cpp
+	"Heap.h"
+	<iostream>
+	<string>
+	<fstream>
+	<cstdlib>
+
+1458643264 d:\code\sdizo\sdizop1v2\include\heap.h
+	<string>
+	<iostream>
+
+1459084416 source:d:\code\sdizo\sdizop1v2\src\rbt.cpp
+	"RBT.h"
+	<string>
+	<iostream>
+	<fstream>
+
+1459017322 d:\code\sdizo\sdizop1v2\include\rbt.h
+	<string>
+	<iostream>
+
