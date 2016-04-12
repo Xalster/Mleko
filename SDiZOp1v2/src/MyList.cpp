@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ MyList::~MyList()
 void MyList::loadFromFile(string filename)
 {
     int tmp;
-    filename = filename + ".txt";
+    //filename = filename + ".txt";
     const char *filenamec = filename.c_str();
     fstream file;
     file.open(filenamec, ios_base::in);
@@ -53,7 +54,7 @@ bool MyList::searchList(int value)
     bool is = false;
     MyListElement *element;
     element = head;
-    for(int i = 0;i <= listsize;i++)
+    for(int i = 0;i < listsize;i++)
     {
         if(element->key == value)
             {
@@ -87,12 +88,13 @@ void MyList::addAfterKey(int position, int nkey)
     else
     {
         element = head;
-        for(int i = 0;i <= listsize;i++)
+        for(int i = 0;i < listsize;i++)
         {
             if(element->key == position)
             {
                 nelement->next = element->next;
                 nelement->prev = element;
+                element->next = nelement;
                 if(nelement->next)
                 {
                     nelement->next->prev = nelement;
@@ -172,7 +174,7 @@ void MyList::deleteLastElement()
     else
     {
         tail->prev->next = NULL;
-        tail->prev = tail;
+        tail = tail->prev;
         listsize--;
     }
 }
@@ -232,7 +234,11 @@ void MyList::show()
         element = head;
         while(element)
         {
-            cout << i << ". " << element->key << endl;
+            if(i%10 == 0)
+            {
+                cout << endl;
+            }
+            cout << i << setw(2) << ": " << element->key << " " << setw(2);
             element = element->next;
             i++;
         }

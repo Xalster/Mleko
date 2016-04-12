@@ -2,28 +2,26 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="SDiZOp1" />
+		<Option title="SDiZOp2v1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/SDiZOp1" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/SDiZOp2v1" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/SDiZOp1" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/SDiZOp2v1" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,21 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/Heap.h" />
-		<Unit filename="include/LoadFromFile.h" />
-		<Unit filename="include/MyArray.h" />
-		<Unit filename="include/MyList.h" />
-		<Unit filename="include/RedBlackTree.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/Heap.cpp" />
-		<Unit filename="src/LoadFromFile.cpp" />
-		<Unit filename="src/MyArray.cpp" />
-		<Unit filename="src/MyList.cpp" />
-		<Unit filename="src/RedBlackTree.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

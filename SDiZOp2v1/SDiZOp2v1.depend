@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1446671344 source:d:\code\sdizo\sdizop2v1\main.cpp
+	<iostream>
+
+1460481781 source:d:\code\sdizo\sdizop2v1\src\graph.cpp
+	"Graph.h"
+
+1460486439 d:\code\sdizo\sdizop2v1\include\graph.h
+	<ListElement.h>
+	<Edge.h>
+
+1460482273 source:d:\code\sdizo\sdizop2v1\src\listelement.cpp
+	"ListElement.h"
+
+1460482760 d:\code\sdizo\sdizop2v1\include\listelement.h
+
+1460485705 source:d:\code\sdizo\sdizop2v1\src\spannigntree.cpp
+	"SpannignTree.h"
+	<iostream>
+
+1460483973 d:\code\sdizo\sdizop2v1\include\spannigntree.h
+	<ListElement.h>
+	<Edge.h>
+
+1460483166 source:d:\code\sdizo\sdizop2v1\src\stack.cpp
+	"Stack.h"
+
+1460483194 d:\code\sdizo\sdizop2v1\include\stack.h
+	<iostream>
+	<ListElement.h>
+
+1460482575 source:d:\code\sdizo\sdizop2v1\src\edge.cpp
+	"Edge.h"
+
+1460482757 d:\code\sdizo\sdizop2v1\include\edge.h
+

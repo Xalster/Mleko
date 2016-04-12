@@ -32,7 +32,7 @@ RBT::~RBT()
 void RBT::loadFromFile(string filename)
 {
     int tmp;
-    filename = filename + ".txt";
+    //filename = filename + ".txt";
     const char *filenamec = filename.c_str();
     fstream file;
     file.open(filenamec, ios_base::in);
@@ -137,21 +137,23 @@ void RBT::show(string sp, string sn, RBTNode *node)
     }
     if(node != &warden)
     {
-        string s;
-        s = sp;
+        string txt;
+        txt = sp;
         if(sn == cr)
         {
-            s[s.length() - 2] = ' ';
+            txt[txt.length() - 2] = ' ';
         }
-        show(s + cp, cr, node->rightchild);
-        s = s.substr(0, sp.length() - 2);
-        cout << sp << sn << node->color << ":" << node->key << endl;
-        s = sp;
+        show(txt+cp,cr,node->rightchild);
+
+        txt = txt.substr(0,sp.length() - 2);
+        cout << txt << sn << node->color << ":" << node->key << endl;
+
+        txt = sp;
         if(sn == cl)
         {
-            s[s.length() -2] = ' ';
+            txt[txt.length() - 2] = ' ';
         }
-        show(s + cp, cl, node->leftchild);
+        show(txt+cp,cl,node->leftchild);
     }
 }
 
@@ -190,7 +192,6 @@ void RBT::addNode(int key)
                 nelement->parent = nelement->parent->rightchild;
             }
         }
-    }
         nelement->color = red;
         while((nelement != root) && (nelement->parent->color == red))
         {
@@ -237,6 +238,7 @@ void RBT::addNode(int key)
                 break;
             }
         }
+    }
         root->color = black;
         rbtsize++;
 }
@@ -269,6 +271,7 @@ void RBT::removeNode(int key)
                     {
                         rnode->rightchild = rnode->rightchild->leftchild;
                     }
+
                     rnode = rnode->rightchild;
                 }
                 else
@@ -301,7 +304,7 @@ void RBT::removeNode(int key)
         }
         else if(rnode == rnode->parent->leftchild)
         {
-            rnode->parent->rightchild = child;
+            rnode->parent->leftchild = child;
         }
         else
         {
@@ -334,7 +337,7 @@ void RBT::removeNode(int key)
                     if(uncle->rightchild->color == black)
                     {
                         uncle->leftchild->color = black;
-                        uncle->color =red;
+                        uncle->color = red;
                         rotateRight(uncle);
                         uncle = child->parent->rightchild;
                     }
@@ -375,8 +378,8 @@ void RBT::removeNode(int key)
                 }
             }
             child->color = black;
-            rbtsize--;
         }
+        rbtsize--;
     }
 }
 
@@ -404,7 +407,7 @@ bool RBT::checkElement(int key)
     {
         is = true;
     }
-    if(is)
+    if(is == true)
     {
         cout << "Znaleziono element" << endl;
     }

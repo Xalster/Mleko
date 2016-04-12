@@ -10,6 +10,28 @@
 
 using namespace std;
 
+double PCFreq = 0.0;
+__int64 timer = 0;
+
+void timerStart()
+{
+	LARGE_INTEGER li;
+	if (!QueryPerformanceFrequency(&li))
+		cout << "BÅ‚Ä…d!\n";
+
+	PCFreq = double(li.QuadPart) / 1000.0;
+
+	QueryPerformanceCounter(&li);
+	timer = li.QuadPart;
+}
+void timerStop()
+{
+	LARGE_INTEGER li;
+	QueryPerformanceCounter(&li);
+	cout << "Operacja zajela: " << (li.QuadPart - timer) / PCFreq << " milisekund" << endl;
+
+}
+
 LARGE_INTEGER startTimer()
 {
 LARGE_INTEGER start;
@@ -32,9 +54,11 @@ int main()
 {
     srand(time(NULL));
     int choice;
-    do
+    bool tostart = true;
+    while(tostart == true)
     {
-        cout << "Wybierz co chcesz przetestowaæ" << endl;
+        tostart = false;
+        cout << "Wybierz co chcesz przetestowac" << endl;
         cout << "1. Tablica" << endl << "2. Lista" << endl << "3. Kopiec" << endl << "4. Drzewo RBT" << endl << "5. Wyjdz" <<endl;
         cin >> choice;
         switch (choice)
@@ -42,8 +66,9 @@ int main()
         case 1:
             {
                 MyArray *myarray = new MyArray();
+                tostart = false;
                 int tsize;
-                do
+                while(tostart == false)
                 {
                     cout << "Aktualnie w tablicy jest " << myarray->tsize << " elementow" << endl;
                     cout << "Co chcesz zrobic ?" << endl << "1. Wczytaj z pliku" << endl << "2. Usun" << endl;
@@ -71,12 +96,9 @@ int main()
                             {
                             case 1:
                                 {
-                                    LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                    performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                    timerStart();
                                     myarray->deleteFirstElement();
-                                    performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                    double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                    cout << endl << "Time:" << tm <<endl;
+                                    timerStop();
 
                                 }break;
                             case 2:
@@ -91,21 +113,15 @@ int main()
                                             cout << "Podaj dodatni indeks!" << endl;
                                         }
                                     }while(position <= 0);
-                                    LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                    performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                    timerStart();
                                     myarray->deleteElement(position);
-                                    performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                    double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                    cout << endl << "Time:" <<tm <<endl;
+                                    timerStop();
                                 }break;
                             case 3:
                                 {
-                                    LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                    performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                    timerStart();
                                     myarray->deleteLastElement();
-                                    performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                    double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                    cout << endl << "Time:" <<tm <<endl;
+                                    timerStop();
                                 }break;
                             default:
                                 {
@@ -125,13 +141,10 @@ int main()
                                         cout << "Podaj wartosc elementu" << endl;
                                         cin >> value;
                                         cout << endl;
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         myarray->addFirstElement(value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
-                                    }break;
+                                        timerStop();
+                                        }break;
                                 case 2:
                                     {
                                         int position;
@@ -148,39 +161,34 @@ int main()
                                             cin >> value;
                                             cout << endl;
                                         }while(position <= 0);
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         myarray->addElement(position, value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
                                 case 3:
                                     {
                                         cout << "Podaj wartosc elementu" << endl;
                                         cin >> value;
                                         cout << endl;
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         myarray->addLastElement(value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
+                                default:
+                                    {
+                                        break;
+                                    }
                                 }
                         }break;
                     case 4:
                         {
                             int value;
-                            cout << "Podaj szukana wartoœæ" << endl;
+                            cout << "Podaj szukana wartosc" << endl;
                             cin >> value;
                             cout << endl;
-                            LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                            performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                            timerStart();
                             myarray->searchTab(value);
-                            performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                            double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                            cout << endl << "Time:" <<tm <<endl;
+                            timerStop();
                         }break;
                     case 5:
                         {
@@ -194,16 +202,22 @@ int main()
                     case 7:
                         {
                             delete myarray;
+                            tostart = true;
                         }break;
+                    default:
+                        {
+                            break;
                         }
-                    }while(choice != 7);
+                        }
+                    }
                 }break;
                     case 2:
                         {
                             int value;
                             MyList *mylist;
+                            tostart = false;
                             mylist = new MyList();
-                            do
+                            while(tostart == false)
                             {
                                 cout << "Aktualnie lista ma " << mylist->listsize << " elementow" << endl << "Co chcesz zrobic z ta struktura?" <<
                                 endl << "1. Wczytaj z pliku "  << endl << "2. Usun" << endl << "3. Dodaj" << endl << "4. Wyszukaj" <<
@@ -229,34 +243,29 @@ int main()
                                         {
                                         case 1:
                                             {
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->deleteFirstElement();
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
                                         case 2:
                                             {
                                                 cout << "Podaj klucz elementu" << endl;
                                                 cin >> value;
                                                 cout << endl;
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->deleteElement(value);
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
                                         case 3:
                                             {
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->deleteLastElement();
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
+                                        default:
+                                            {
+                                                break;
+                                            }
                                             }
                                     }break;
                                 case 3:
@@ -271,12 +280,9 @@ int main()
                                                 cout << "Podaj klucz" << endl;
                                                 cin >> value;
                                                 cout << endl;
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->addFirstElement(value);
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
                                         case 2:
                                             {
@@ -284,28 +290,26 @@ int main()
                                                 cout << "Podaj klucz" << endl;
                                                 cin >> value;
                                                 cout << endl;
-                                                cout << "Za który element (podaj klucz)" << endl;
+                                                cout << "Za ktory element (podaj klucz)" << endl;
                                                 cin >> key;
                                                 cout << endl;
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->addAfterKey(key, value);
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
                                         case 3:
                                             {
                                                 cout << "Podaj klucz" << endl;
                                                 cin >> value;
                                                 cout << endl;
-                                                LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                                performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                                timerStart();
                                                 mylist->addLastElement(value);
-                                                performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                                double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                                cout << endl << "Time:" <<tm <<endl;
+                                                timerStop();
                                             }break;
+                                        default:
+                                            {
+                                                break;
+                                            }
                                         }
                                     }break;
                                 case 4:
@@ -313,12 +317,9 @@ int main()
                                         cout << "Podaj klucz do wyszukania" << endl;
                                         cin >> value;
                                         cout << endl;
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         mylist->searchList(value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
                                 case 5:
                                     {
@@ -332,19 +333,25 @@ int main()
                                 case 7:
                                     {
                                         delete mylist;
+                                        tostart = true;
                                     }break;
+                                default:
+                                    {
+                                        break;
+                                    }
                                 }
-                            }while(choice != 7);
+                            }
                         }break;
                     case 3:
                         {
                             int value;
                             Heap *heap;
+                            tostart = false;
                             heap = new Heap();
-                            do
+                            while(tostart == false)
                             {
                                 cout << "Kopiec aktualnie ma " << heap->heapsize << " elementow" << endl << "Co chcesz zrobic z ta struktura?" <<
-                                endl << "1. Zbuduj z pliku " << endl << "2. Usun korzen" << endl << "3. Dodaj" << endl << "4. Wyszukaj" <<
+                                endl << "1. Wczytaj z pliku " << endl << "2. Usun korzen" << endl << "3. Dodaj" << endl << "4. Wyszukaj" <<
                                 endl << "5. Wyswietl" << endl << "6. Zniszcz strukture" << endl << "7. Wroc do wyboru struktury" << endl;
                                 cin >> choice;
                                 switch (choice)
@@ -352,7 +359,7 @@ int main()
                                 case 1:
                                     {
                                         string filename;
-                                        cout << "Podaj plikl" << endl;
+                                        cout << "Podaj nazwe pliku" << endl;
                                         cin >> filename;
                                         cout << endl;
                                         heap = new Heap();
@@ -360,36 +367,27 @@ int main()
                                     }break;
                                 case 2:
                                     {
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         heap->deleteRoot();
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
                                 case 3:
                                     {
                                         cout << "Podaj co chcesz wstawic" << endl;
                                         cin >> value;
                                         cout << endl;
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         heap->addNode(value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
                                 case 4:
                                     {
                                         cout << "Podaj czego szukasz" << endl;
                                         cin >> value;
                                         cout << endl;
-                                        LARGE_INTEGER performanceCountStart,performanceCountEnd;
-                                        performanceCountStart = startTimer(); //zapamiêtujemy czas pocz¹tkowy
+                                        timerStart();
                                         heap->searchHeap(value);
-                                        performanceCountEnd = endTimer(); //zapamiêtujemy koniec czasu
-                                        double tm = performanceCountEnd.QuadPart - performanceCountStart.QuadPart;
-                                        cout << endl << "Time:" <<tm <<endl;
+                                        timerStop();
                                     }break;
                                 case 5:
                                     {
@@ -401,19 +399,25 @@ int main()
                                         heap->~Heap();
                                         heap = new Heap();
                                     }break;
-                                    case 7:
-                                        {
-                                            delete heap;
-                                        }break;
+                                case 7:
+                                    {
+                                        delete heap;
+                                        tostart = true;
+                                    }break;
+                                default:
+                                    {
+                                        break;
+                                    }
 
                                 }
-                            }while(choice != 7);
+                            }
                         }break;
                     case 4:
                         {
                             int value;
                             RBT *rbt = new RBT();
-                            do
+                            tostart = false;
+                            while(tostart == false)
                             {
                                 cout << "Aktualnie RBT ma " << rbt->rbtsize << " elementow" << endl << "Co chcesz zrobic z ta struktura?" <<
                                 endl << "1. Wczytaj z pliku " << endl << "2. Usun" << endl << "3. Dodaj" << endl << "4. Wyszukaj" <<
@@ -427,7 +431,7 @@ int main()
                                         rbt->~RBT();
                                         rbt = new RBT();
                                         string filename;
-                                        cout << "Podaj plik" << endl;
+                                        cout << "Podaj nazwe pliku" << endl;
                                         cin >> filename;
                                         cout << endl;
                                         rbt->loadFromFile(filename);
@@ -437,41 +441,61 @@ int main()
                                         cout << "Podaj element do usuniecia" << endl;
                                         cin >> value;
                                         cout << endl;
+                                        timerStart();
                                         rbt->removeNode(value);
+                                        timerStop();
                                     }break;
                                 case 3:
                                     {
                                         cout << "Podaj wartosc elementu" << endl;
                                         cin >> value;
                                         cout << endl;
+                                        timerStart();
                                         rbt->addNode(value);
+                                        timerStop();
                                     }break;
                                 case 4:
                                     {
                                         cout << "Podaj element do znalezienia" << endl;
                                         cin >> value;
                                         cout << endl;
+                                        timerStart();
                                         rbt->checkElement(value);
+                                        timerStop();
                                     }break;
                                 case 5:
                                     {
-                                        rbt->show("   ", "", rbt->root);
+                                        rbt->show("    ", "", rbt->root);
                                     }break;
                                 case 6:
                                     {
                                         rbt->~RBT();
                                         rbt = new RBT();
-                                    }
+                                    }break;
                                 case 7:
                                     {
                                         delete rbt;
+                                        tostart = true;
                                     }break;
+                                default:
+                                    {
+                                        break;
+                                    }
                                 }
-                            }while(choice != 7);
+                            }
                         }break;
+                case 5:
+                    {
+                        return 0;
+                    }break;
+                default:
+                {
+                    break;
+                }
+
 
             }
-        }while(choice < 5);
+        }
 
     return 0;
 }

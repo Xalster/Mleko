@@ -27,7 +27,7 @@ Heap::~Heap()
 void Heap::loadFromFile(string filename)
 {
     int tmp;
-    filename = filename + ".txt";
+    //filename = filename + ".txt";
     const char *filenamec = filename.c_str();
     fstream file;
     file.open(filenamec, ios_base::in);
@@ -91,25 +91,31 @@ void Heap::show(string sp, string sn, int value)
 
   if(value < heapsize)
   {
-    string s;
-    s = sp;
-    if(sn == cr) s[s.length() - 2] = ' ';
-    show(s + cp, cr, 2 * value + 2);
+    string txt;
+    txt = sp;
+    if(sn == cr)
+    {
+        txt[txt.length() - 2] = ' ';
+    }
+    show(txt + cp, cr, 2 * value + 2);
 
-    s = s.substr(0,sp.length()-2);
+    txt = txt.substr(0,sp.length()-2);
 
-    cout << s << sn << tab[value] << endl;
+    cout << txt << sn << tab[value] << endl;
 
-    s = sp;
-    if(sn == cl) s[s.length() - 2] = ' ';
-    show(s + cp, cl, 2 * value + 1);
+    txt = sp;
+    if(sn == cl)
+    {
+        txt[txt.length() - 2] = ' ';
+    }
+    show(txt + cp, cl, 2 * value + 1);
   }
 }
 
 bool Heap::searchHeap(int value)
 {
     bool is = false;
-    for(int i = 1;i <= heapsize;i++)
+    for(int i = 0;i <= heapsize;i++)
     {
         if(value == tab[i])
         {
@@ -131,18 +137,27 @@ bool Heap::searchHeap(int value)
 void Heap::addNode(int value)
 {
     int i,j;
-
-  i = heapsize++;
-  j = (i - 1) / 2;
-
-  while(i > 0 && tab[j] < value)
-  {
-    tab[i] = tab[j];
-    i = j;
+    i = heapsize++;
+    int *stab = new int[heapsize];
+    for(int in = 0;in < heapsize;in++)
+    {
+        stab[in] = tab[in];
+    }
     j = (i - 1) / 2;
-  }
 
-  tab[i] = value;
+    while(i > 0 && stab[j] < value)
+    {
+        stab[i] = stab[j];
+        i = j;
+        j = (i - 1) / 2;
+    }
+    stab[i] = value;
+    tab = new int[heapsize];
+    for(int in = 0;in < heapsize;in++)
+    {
+        tab[in] = stab[in];
+    }
+    delete[] stab;
 }
 
 void Heap::deleteRoot()

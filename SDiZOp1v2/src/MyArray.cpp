@@ -23,7 +23,7 @@ MyArray::~MyArray()
 void MyArray::loadFromFile(string filename)
 {
     int tmp;
-    filename = filename + ".txt";
+    //filename = filename + ".txt";
     const char *filenamec = filename.c_str();
     fstream file;
     file.open(filenamec, ios_base::in);
@@ -55,7 +55,7 @@ void MyArray::show()
     {
         for(int i = 0;i < tsize;i++)
         {
-            cout << tab[i] << setw(3);
+            cout << tab[i] << setw(5);
         }
         cout << endl;
     }
@@ -65,13 +65,13 @@ void MyArray::addElement(int position, int value)
 {
     if(position < 0 || position >= tsize)
     {
-        cout << "Podajesz indeks nie le¿¹cy w zakresie tablicy" << endl;
+        cout << "Podajesz indeks nie lezacy w zakresie tablicy" << endl;
     }
     else
     {
         tsize++;
         int *stab = new int[tsize];
-        for(int i = 0;i < tsize;i++)
+        for(int i = 0;i < tsize - 1;i++)
         {
             stab[i] = tab[i];
         }
@@ -93,7 +93,7 @@ void MyArray::addFirstElement(int value)
 {
         tsize++;
         int *stab = new int[tsize];
-        for(int i = 0;i < tsize;i++)
+        for(int i = 0;i < tsize - 1;i++)
         {
             stab[i] = tab[i];
         }
@@ -114,7 +114,7 @@ void MyArray::addLastElement(int value)
 {
         tsize++;
         int *stab = new int[tsize];
-        for(int i = 0;i < tsize;i++)
+        for(int i = 0;i < tsize - 1;i++)
         {
             stab[i] = tab[i];
         }
